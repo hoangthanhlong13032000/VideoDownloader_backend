@@ -7,7 +7,7 @@ const getVideoById = async (req, res) => {
     if(!id || !(typeof id === 'string')) res.status(400).send({status: 0, data: {}, message: 'ID is required!'});
     else {
         ytdl.getInfo(url + id).then(info => {
-            res.status(200).send({status: 1, data: info.formats, message: ''})
+            res.status(200).send({status: 1, data: {formats: info.formats,videoDetails: info.videoDetails, related_videos: info.related_videos}, message: ''})
         }).catch(
             err => {
                 res.status(400).send({status: 0, data: {}, message: err.toString()})

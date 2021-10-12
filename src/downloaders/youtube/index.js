@@ -10,7 +10,7 @@ const validate = require('./validate')
  */
 const getVideoID = (link) => {
     if (validate.ID(link)) return link;
-    if (validate.URL(link)) throw Error('Not a YouTube domain');
+    if (!validate.URL(link)) throw Error('Not a YouTube domain');
 
     const url = new URL(link);
     let id = url.searchParams.get('v');
@@ -22,7 +22,7 @@ const getVideoID = (link) => {
     if (!id) throw Error(`No video id found: ${link}`);
     else {
         id = id.substring(0, 11);
-        if (validate.ID(id)) throw TypeError(`Video ID is incorrect`);
+        if (!validate.ID(id)) throw TypeError(`Video ID is incorrect`);
     }
 
     return id;
@@ -36,12 +36,12 @@ const getVideoID = (link) => {
  * @throws {Error} If unable to find a id
  * @throws {TypeError} If id doesn't match specs
  */
-const BASE_URL = 'https://www.youtube.com/watch?v=';
+const BASE_URL = process.env.YOUTUBE_URL || 'https://www.youtube.com/watch?v=';
 
 const getVideoInfo = (string) => {
-    const id = validate.ID(string) ? string : getVideoID(string);
+    const id = getVideoID(string);
 
 
 }
 
-module.exports = {getVideoID}
+module.exports = {getVideoID, getVideoInfo}

@@ -8,8 +8,8 @@ dotenv.config();
 /**
   connect to mongodb database
  */
-const database = require("./src/config/database");
-database.connect();
+// const database = require("./src/config/database");
+// database.connect();
 
 
 /**

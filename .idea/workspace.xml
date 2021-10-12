@@ -22,13 +22,14 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/routes" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/tools" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/tools" />
       <recent name="$PROJECT_DIR$/src/routes" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -48,7 +49,10 @@
       <option name="presentableId" value="Default" />
       <updated>1633764676282</updated>
       <workItem from="1633764678014" duration="9291000" />
-      <workItem from="1633832376507" duration="15064000" />
+      <workItem from="1633832376507" duration="26793000" />
+      <workItem from="1633934564967" duration="20000" />
+      <workItem from="1634037011875" duration="681000" />
+      <workItem from="1634043288044" duration="623000" />
     </task>
     <servers />
   </component>
