@@ -11,9 +11,11 @@ A web app to download video from youtube, facebook, ...
 ## Get video information 
 
 ### By id
-`GET /api/video/youtube?id=`
+`GET /api/video/youtube?id={id}`
 
 `GET /api/video/tiktok?id={id}&user={user}`
+
+`GET /api/video/facebook?id={id}`
 
     http://localhost:3333/api/video/youtube?id=OnD7mi_-Xso
 
