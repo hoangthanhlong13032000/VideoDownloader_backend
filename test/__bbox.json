@@ -1,0 +1,234 @@
+{
+    "videoData": {
+        "__typename": "Video",
+        "preferred_thumbnail": {
+            "image": {
+                "uri": "https://scontent.fhan5-6.fna.fbcdn.net/v/t15.5256-10/s960x960/103878454_255413309097819_409211099487705900_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=df419e&_nc_ohc=euEJBlCekMwAX9-8H7L&_nc_ht=scontent.fhan5-6.fna&oh=00_AT9oRNkkN6YZamOvKH9dUWr4_JuyQqhDNdN2DZk8CR-1-g&oe=61BC19DF"
+            },
+            "image_preview_payload": "ABcqyWiZhgdeT+XWoQpXBPrW3tEYBPXJ/U1nXa4Jx2Aq5Rsv66gQ7hnGPwNFQlyevNFZ2Gb12cYHqap3an6cCtSeLd19Rg+9Ubw/Ng9Mf41vJfE+9hMzPK2jJ5oqdkLLgDJ/pRWLQrnSZPcVmXi/Ngjggfpn/P0q8Cc1BOMvzz8p/ka6HsUzPSM54znqBx/njnOaKfbjL4PPP/suf50VCZNj/9k=",
+            "id": "255413272431156"
+        },
+        "id": "255413099097840",
+        "animated_image_caption": null,
+        "original_width": 720,
+        "original_height": 1280,
+        "permalink_url": "https://www.facebook.com/100038874561571/videos/255413099097840/",
+        "playable_url": "https://video.fhan5-6.fna.fbcdn.net/v/t42.9040-2/103175648_260087821891970_4718489855862219476_n.mp4?_nc_cat=105&ccb=1-5&_nc_sid=985c63&efg=eyJybHIiOjg2NywicmxhIjo1MTIsInZlbmNvZGVfdGFnIjoic3ZlX3NkIn0%3D&_nc_ohc=WQHQp1b0sF8AX97LvvW&rl=867&vabr=482&_nc_ht=video.fhan5-6.fna&oh=bdd68ab890e0e7e1ed00b843f2da0972&oe=61B6E046",
+        "playable_url_quality_hd": "https://video.fhan5-8.fna.fbcdn.net/v/t39.25447-2/242257709_417847946351118_216619244794336075_n.mp4?_nc_cat=110&vs=97c9f65845e405be&_nc_vs=HBksFQAYJEdDMlBjQTRPa21uT0Izd0JBRXZUZWpFT2xnRURibWRqQUFBRhUAAsgBABUAGCRHSjRhTWdZbXpWXzRpdWNOQUpRTmN2bmVoYTl3YnY0R0FBQUYVAgLIAQBLBogScHJvZ3Jlc3NpdmVfcmVjaXBlATENc3Vic2FtcGxlX2ZwcwAQdm1hZl9lbmFibGVfbnN1YgAgbWVhc3VyZV9vcmlnaW5hbF9yZXNvbHV0aW9uX3NzaW0AKGNvbXB1dGVfc3NpbV9vbmx5X2F0X29yaWdpbmFsX3Jlc29sdXRpb24AEWRpc2FibGVfcG9zdF9wdnFzABUAJQAcAAAm4LvX8P%2BSdBUCKAJDMxgLdnRzX3ByZXZpZXccF0ArqwIMSbpeGCdkYXNoX2dlbjNiYXNpY181c2VjZ29wX2hxMl9mcmFnXzJfdmlkZW8SABgYdmlkZW9zLnZ0cy5jYWxsYmFjay5wcm9kOBJWSURFT19WSUVXX1JFUVVFU1QbBIgVb2VtX3RhcmdldF9lbmNvZGVfdGFnBm9lcF9oZBNvZW1fcmVxdWVzdF90aW1lX21zDTE2MzkzNjczNTY4NTkMb2VtX2NmZ19ydWxlB3VubXV0ZWQTb2VtX3JvaV9yZWFjaF9jb3VudAMyOTAlAhwAJcQBGweIAXMDMzc5AmNkCjIwMjAtMDYtMTQDcmNiAzIwMANhcHATRmFjZWJvb2sgZm9yIGlQaG9uZQJjdBlDT05UQUlORURfUE9TVF9BVFRBQ0hNRU5UE29yaWdpbmFsX2R1cmF0aW9uX3MFMTMuOTgCdHMVcHJvZ3Jlc3NpdmVfZW5jb2RpbmdzAA%3D%3D&ccb=1-5&_nc_sid=894f7d&efg=eyJ2ZW5jb2RlX3RhZyI6Im9lcF9oZCJ9&_nc_ohc=TNS3Ogd5zmAAX9ZeFny&_nc_ht=video.fhan5-8.fna&oh=00_AT-0WzWa9mk_vUgMGh7ebNyqcJIgjh8_7St_awzgM8YTwQ&oe=61BC3F19&_nc_rid=f4604603807c4eb",
+        "playable_duration_in_ms": 13999,
+        "videoId": "255413099097840",
+        "prefetch_dash_segments": [
+            {
+                "video": [
+                    {
+                        "url": "https://video.fhan5-4.fna.fbcdn.net/v/t39.25447-2/242166118_919234748802402_7861592249752012833_n.mp4?_nc_cat=104&ccb=1-5&_nc_sid=5aebc0&efg=eyJ2ZW5jb2RlX3RhZyI6ImRhc2hfZ2VuM2Jhc2ljXzVzZWNnb3BfaHExX2ZyYWdfMl92aWRlbyJ9&_nc_ohc=8OP5AKrDh_cAX-OwVw4&_nc_ht=video.fhan5-4.fna&oh=36a33befccff61e84f5f2597ec316f85&oe=61BBC741",
+                        "start": 0,
+                        "end": 947,
+                        "representation_id": "324045992846716v",
+                        "segment_type": "init",
+                        "mime_codec": "video/mp4; codecs=\"avc1.4D401E\""
+                    },
+                    {
+                        "url": "https://video.fhan5-4.fna.fbcdn.net/v/t39.25447-2/242166118_919234748802402_7861592249752012833_n.mp4?_nc_cat=104&ccb=1-5&_nc_sid=5aebc0&efg=eyJ2ZW5jb2RlX3RhZyI6ImRhc2hfZ2VuM2Jhc2ljXzVzZWNnb3BfaHExX2ZyYWdfMl92aWRlbyJ9&_nc_ohc=8OP5AKrDh_cAX-OwVw4&_nc_ht=video.fhan5-4.fna&oh=36a33befccff61e84f5f2597ec316f85&oe=61BBC741",
+                        "start": 948,
+                        "end": 1063,
+                        "representation_id": "324045992846716v",
+                        "segment_type": "sidx",
+                        "mime_codec": "video/mp4; codecs=\"avc1.4D401E\""
+                    },
+                    {
+                        "url": "https://video.fhan5-4.fna.fbcdn.net/v/t39.25447-2/242166118_919234748802402_7861592249752012833_n.mp4?_nc_cat=104&ccb=1-5&_nc_sid=5aebc0&efg=eyJ2ZW5jb2RlX3RhZyI6ImRhc2hfZ2VuM2Jhc2ljXzVzZWNnb3BfaHExX2ZyYWdfMl92aWRlbyJ9&_nc_ohc=8OP5AKrDh_cAX-OwVw4&_nc_ht=video.fhan5-4.fna&oh=36a33befccff61e84f5f2597ec316f85&oe=61BBC741",
+                        "start": 1064,
+                        "end": 176879,
+                        "representation_id": "324045992846716v",
+                        "segment_type": "data",
+                        "mime_codec": "video/mp4; codecs=\"avc1.4D401E\""
+                    }
+                ],
+                "audio": [
+                    {
+                        "url": "https://video.fhan5-10.fna.fbcdn.net/v/t42.1790-2/103996259_571482757128319_1301303753164704447_n.mp4?_nc_cat=101&ccb=1-5&_nc_sid=5aebc0&efg=eyJ2ZW5jb2RlX3RhZyI6ImRhc2hfYXVkaW9fYWFjcF82NF9mcmFnXzJfYXVkaW8ifQ%3D%3D&_nc_ohc=KTooE6uM24cAX97UwSp&_nc_ht=video.fhan5-10.fna&oh=382767285ea376db3edf74e9909aa5ec&oe=61B6E576",
+                        "start": 0,
+                        "end": 906,
+                        "representation_id": "571482753794986a",
+                        "segment_type": "init",
+                        "mime_codec": "audio/mp4; codecs=\"mp4a.40.5\""
+                    },
+                    {
+                        "url": "https://video.fhan5-10.fna.fbcdn.net/v/t42.1790-2/103996259_571482757128319_1301303753164704447_n.mp4?_nc_cat=101&ccb=1-5&_nc_sid=5aebc0&efg=eyJ2ZW5jb2RlX3RhZyI6ImRhc2hfYXVkaW9fYWFjcF82NF9mcmFnXzJfYXVkaW8ifQ%3D%3D&_nc_ohc=KTooE6uM24cAX97UwSp&_nc_ht=video.fhan5-10.fna&oh=382767285ea376db3edf74e9909aa5ec&oe=61B6E576",
+                        "start": 907,
+                        "end": 1034,
+                        "representation_id": "571482753794986a",
+                        "segment_type": "sidx",
+                        "mime_codec": "audio/mp4; codecs=\"mp4a.40.5\""
+                    },
+                    {
+                        "url": "https://video.fhan5-10.fna.fbcdn.net/v/t42.1790-2/103996259_571482757128319_1301303753164704447_n.mp4?_nc_cat=101&ccb=1-5&_nc_sid=5aebc0&efg=eyJ2ZW5jb2RlX3RhZyI6ImRhc2hfYXVkaW9fYWFjcF82NF9mcmFnXzJfYXVkaW8ifQ%3D%3D&_nc_ohc=KTooE6uM24cAX97UwSp&_nc_ht=video.fhan5-10.fna&oh=382767285ea376db3edf74e9909aa5ec&oe=61B6E576",
+                        "start": 1035,
+                        "end": 17339,
+                        "representation_id": "571482753794986a",
+                        "segment_type": "data",
+                        "mime_codec": "audio/mp4; codecs=\"mp4a.40.5\""
+                    }
+                ]
+            }
+        ],
+        "all_video_dash_prefetch_representations": [
+            {
+                "representations": [
+                    {
+                        "representation_id": "2665174897121273v",
+                        "mime_type": "video/mp4",
+                        "codecs": "avc1.4D401E",
+                        "base_url": "https://video.fhan5-7.fna.fbcdn.net/v/t39.25447-2/242323212_1534502626889945_4093037842320471293_n.mp4?_nc_cat=103&ccb=1-5&_nc_sid=5aebc0&efg=eyJ2ZW5jb2RlX3RhZyI6ImRhc2hfZ2VuM2Jhc2ljXzVzZWNnb3BfNDI2X2NyZl8yN19tYWluXzMuMF9mcmFnXzJfdmlkZW8ifQ%3D%3D&_nc_ohc=efI1nOp-bwMAX8Py5wp&_nc_ht=video.fhan5-7.fna&oh=00_AT9vT2NOhR7sV2RKfm5RN6UQUSWwT9jZ7O1ewUgk2CAT1A&oe=61BAF256",
+                        "bandwidth": 268396,
+                        "height": 426,
+                        "width": 240,
+                        "playback_resolution_mos": "0:100,360:35.6,480:31.7,720:27.6",
+                        "segments": [
+                            {
+                                "start": 0,
+                                "end": 947
+                            },
+                            {
+                                "start": 948,
+                                "end": 1063
+                            },
+                            {
+                                "start": 1064,
+                                "end": 70241
+                            }
+                        ]
+                    },
+                    {
+                        "representation_id": "1000885527362004v",
+                        "mime_type": "video/mp4",
+                        "codecs": "avc1.4D401E",
+                        "base_url": "https://video.fhan5-10.fna.fbcdn.net/v/t39.25447-2/242303010_1019697075473682_4807325881433896599_n.mp4?_nc_cat=101&ccb=1-5&_nc_sid=5aebc0&efg=eyJ2ZW5jb2RlX3RhZyI6ImRhc2hfZ2VuM2Jhc2ljXzVzZWNnb3BfMjU2X2NyZl8yN19tYWluXzMuMF9mcmFnXzJfdmlkZW8ifQ%3D%3D&_nc_ohc=BQh-J_TdOUwAX9qxjwa&_nc_ht=video.fhan5-10.fna&oh=09b41092b6f40fea8e5ec0627fbe84c4&oe=61BC315A",
+                        "bandwidth": 109459,
+                        "height": 256,
+                        "width": 144,
+                        "playback_resolution_mos": "0:100,360:20.2,480:18.5,720:18",
+                        "segments": [
+                            {
+                                "start": 0,
+                                "end": 946
+                            },
+                            {
+                                "start": 947,
+                                "end": 1062
+                            },
+                            {
+                                "start": 1063,
+                                "end": 30190
+                            }
+                        ]
+                    },
+                    {
+                        "representation_id": "324045992846716v",
+                        "mime_type": "video/mp4",
+                        "codecs": "avc1.4D401E",
+                        "base_url": "https://video.fhan5-4.fna.fbcdn.net/v/t39.25447-2/242166118_919234748802402_7861592249752012833_n.mp4?_nc_cat=104&ccb=1-5&_nc_sid=5aebc0&efg=eyJ2ZW5jb2RlX3RhZyI6ImRhc2hfZ2VuM2Jhc2ljXzVzZWNnb3BfaHExX2ZyYWdfMl92aWRlbyJ9&_nc_ohc=8OP5AKrDh_cAX-OwVw4&_nc_ht=video.fhan5-4.fna&oh=36a33befccff61e84f5f2597ec316f85&oe=61BBC741",
+                        "bandwidth": 1032134,
+                        "height": 640,
+                        "width": 360,
+                        "playback_resolution_mos": "0:100,360:68.1,480:62.9,720:52",
+                        "segments": [
+                            {
+                                "start": 0,
+                                "end": 947
+                            },
+                            {
+                                "start": 948,
+                                "end": 1063
+                            },
+                            {
+                                "start": 1064,
+                                "end": 176879
+                            }
+                        ]
+                    },
+                    {
+                        "representation_id": "917823692156191v",
+                        "mime_type": "video/mp4",
+                        "codecs": "avc1.4D401F",
+                        "base_url": "https://video.fhan5-8.fna.fbcdn.net/v/t39.25447-2/242257709_417847946351118_216619244794336075_n.mp4?_nc_cat=110&ccb=1-5&_nc_sid=5aebc0&efg=eyJ2ZW5jb2RlX3RhZyI6ImRhc2hfZ2VuM2Jhc2ljXzVzZWNnb3BfaHEyX2ZyYWdfMl92aWRlbyJ9&_nc_ohc=TNS3Ogd5zmAAX9ZeFny&_nc_ht=video.fhan5-8.fna&oh=00_AT9d_kflHHiitfd8FBNEMnT17pttjz2ISRU1QpduMZzD1A&oe=61BC3F19",
+                        "bandwidth": 3155225,
+                        "height": 1280,
+                        "width": 720,
+                        "playback_resolution_mos": "0:100,360:92,480:89,720:80.9",
+                        "segments": [
+                            {
+                                "start": 0,
+                                "end": 947
+                            },
+                            {
+                                "start": 948,
+                                "end": 1063
+                            },
+                            {
+                                "start": 1064,
+                                "end": 669700
+                            }
+                        ]
+                    },
+                    {
+                        "representation_id": "571482753794986a",
+                        "mime_type": "audio/mp4",
+                        "codecs": "mp4a.40.5",
+                        "base_url": "https://video.fhan5-10.fna.fbcdn.net/v/t42.1790-2/103996259_571482757128319_1301303753164704447_n.mp4?_nc_cat=101&ccb=1-5&_nc_sid=5aebc0&efg=eyJ2ZW5jb2RlX3RhZyI6ImRhc2hfYXVkaW9fYWFjcF82NF9mcmFnXzJfYXVkaW8ifQ%3D%3D&_nc_ohc=KTooE6uM24cAX97UwSp&_nc_ht=video.fhan5-10.fna&oh=382767285ea376db3edf74e9909aa5ec&oe=61B6E576",
+                        "bandwidth": 65977,
+                        "height": 0,
+                        "width": 0,
+                        "playback_resolution_mos": "",
+                        "segments": [
+                            {
+                                "start": 0,
+                                "end": 906
+                            },
+                            {
+                                "start": 907,
+                                "end": 1034
+                            },
+                            {
+                                "start": 1035,
+                                "end": 17339
+                            }
+                        ]
+                    }
+                ],
+                "video_id": 255413099097840
+            }
+        ],
+        "is_final": false
+    },
+    "page_info": {
+        "articleBody": "Hoa lan ngày nắng đẹp ❤️🌷",
+        "url": "https://www.facebook.com/100038874561571/videos/255413099097840/",
+        "interactionStatistic": [
+            {
+                "@type": "InteractionCounter",
+                "interactionType": "https://schema.org/CommentAction",
+                "userInteractionCount": 5
+            },
+            {
+                "@type": "InteractionCounter",
+                "interactionType": "http://schema.org/LikeAction",
+                "userInteractionCount": 34
+            },
+            {
+                "@type": "InteractionCounter",
+                "interactionType": "http://schema.org/ShareAction",
+                "userInteractionCount": 0
+            }
+        ],
+        "author": {
+            "@type": "Person",
+            "name": "Chi Ling",
+            "identifier": 100038874561571,
+            "url": "https://www.facebook.com/people/Chi-Ling/100038874561571/",
+            "image": null,
+            "sameAs": null
+        }
+    }
+}

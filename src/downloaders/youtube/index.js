@@ -1,4 +1,5 @@
-const validate = require('./validate')
+const utils = require('../../utils')
+const extract = require('./extract')
 
 /**
  * Get video ID.
@@ -22,7 +23,7 @@ const getVideoID = (link) => {
     if (!id) throw Error(`No video id found: ${link}`);
     else {
         id = id.substring(0, 11);
-        if (!validate.ID(id)) throw TypeError(`Video ID is incorrect`);
+        if (!validate.ID(id)) throw TypeError(`Video ID=${id} is incorrect`);
     }
 
     return id;
@@ -31,17 +32,43 @@ const getVideoID = (link) => {
 /**
  * Get video Info.
  *
- * @param {string} string id or url of video
+ * @param {string} source id or url of video
  * @return {string}
  * @throws {Error} If unable to find a id
  * @throws {TypeError} If id doesn't match specs
  */
-const BASE_URL = process.env.YOUTUBE_URL || 'https://www.youtube.com/watch?v=';
 
-const getVideoInfo = (string) => {
-    const id = getVideoID(string);
+const BASE_URL = "https://www.youtube.com/watch?v=";
+const getVideoInfo = async (source) => {
+    
+    console.log(`--START-- get youtube video id of url = ${source}`);
 
+    let info = undefined;
+    const id = getVideoID(source);
+    const url = BASE_URL + id;
+    const options = { headers: utils.getHeaders() };
 
+    console.log(`--SUCCESS-- get youtube video id of url = ${source}: id = ${id}`);
+
+    try {
+        console.log(`--START-- get youtube video info of id = ${id}`);
+        const page = await utils.getMiniPage(url, options);
+        info = await extract(page, options);
+    } 
+    catch (err) {
+        console.log(`--Error-- getting youtube video id = ${id}: ${err.message}`);
+    } 
+    finally {
+        if (!info) throw Error(`Video id = ${id} not found!`);
+        else console.log(`--SUCCESS-- get youtube video info of id = ${id}`);
+        return info;
+    }
 }
 
-module.exports = {getVideoID, getVideoInfo}
+const validate = {
+    ID: (id) => /^[a-zA-Z0-9-_]{11}$/.test(id),
+    URL: (url) => /(youtu\.be\/)|(youtube.com\/)/.test(url)
+}
+
+
+module.exports = { getVideoID, getVideoInfo, validate }

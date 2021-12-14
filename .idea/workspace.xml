@@ -22,7 +22,9 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/tools" />
+    <property name="javascript.nodejs.core.library.configured.version" value="14.16.0" />
+    <property name="javascript.nodejs.core.library.typings.version" value="14.17.27" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -52,7 +54,15 @@
       <workItem from="1633832376507" duration="26793000" />
       <workItem from="1633934564967" duration="20000" />
       <workItem from="1634037011875" duration="681000" />
-      <workItem from="1634043288044" duration="623000" />
+      <workItem from="1634043288044" duration="2024000" />
+      <workItem from="1634201069611" duration="12000" />
+      <workItem from="1634262330483" duration="32667000" />
+      <workItem from="1634349846782" duration="7000" />
+      <workItem from="1634367480063" duration="6555000" />
+      <workItem from="1634884361022" duration="1453000" />
+      <workItem from="1634955673243" duration="55000" />
+      <workItem from="1635300849334" duration="22118000" />
+      <workItem from="1635403698251" duration="14000" />
     </task>
     <servers />
   </component>
