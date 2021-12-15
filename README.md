@@ -18,6 +18,8 @@ A web app to download video from youtube, facebook, ...
 
 `GET /api/video/facebook?id={id}`
 
+`GET /api/video/facebook?id={id}`
+
     http://localhost:3333/api/video/youtube?id=OnD7mi_-Xso
 
     http://localhost:3333/api/video/tiktok?id=7027810020414737691&user=@cheeseinurdream
