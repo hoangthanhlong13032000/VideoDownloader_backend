@@ -31,7 +31,6 @@ const extract = async (source, options) => {
         const format = data(info);
         return {
             status: status(info),
-            expiresInSeconds: expires(info),
             videos: format.videos,
             video_only: format.video_only,
             audio_only: format.audio_only,
@@ -91,10 +90,6 @@ const data = (info) => {
 const status = (info) => {
     try { return Number(info.playabilityStatus.status == 'OK') }
     catch (err) { return 0 }
-}
-const expires = (info) => {
-    try { return info.streamingData.expiresInSeconds }
-    catch (err) { return '0' }
 }
 
 const details = (info) => {

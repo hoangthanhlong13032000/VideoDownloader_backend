@@ -1,3 +1,6 @@
+const cheerio = require('cheerio')
+const axios = require('axios')
+const qs = require('qs')
 const utils = require('../../utils')
 const extract = require('./extract')
 const CONSTANT = require('./constant.json')
@@ -17,12 +20,12 @@ const getVideoIDAndUser = (link) => {
 
     const paths = /(@[\w.-]+)\/video\/(\d+)/.exec(url.pathname);
 
-    if(!paths) throw Error(`No video id and user found: ${link}`);
+    if (!paths) throw Error(`No video id and user found: ${link}`);
 
-    const user = paths[1];
+    const user = paths[1] || '@a';
     const id = paths[2]
 
-    return {user, id};
+    return { user, id };
 };
 
 /**
@@ -38,30 +41,83 @@ const BASE_API_URL = CONSTANT.BASE_API_URL;
 const BASE_HTML_URL = CONSTANT.BASE_URL;
 
 const getVideoInfo = async (source) => {
-    const {user, id} = getVideoIDAndUser(source);
-    const options = {headers: utils.getHeaders()};
+    const { user, id } = getVideoIDAndUser(source);
+    const options = { headers: utils.getHeaders() };
 
     console.log(`--START-- get tiktok video id = ${id}, user = ${user}`);
 
-    let info = undefined;
+    let video_info = undefined;
+    let video_url = undefined;
 
-    try {
-        const url = `${BASE_API_URL}/${user}/${id}`;
-        const json = await utils.getMiniPage(url, options);
-        const object = JSON.parse(json);
-        if (object.statusCode === 0) info = object;
-    } catch (err) {
-        console.log(`Get video info from url = ${source} ERROR: \n${err}!`);
-    }
+    const api_url = `${BASE_API_URL}/${user}/${id}`;
+    const web_url = `${BASE_HTML_URL}/${user}/video/${id}`;
 
-    if(!info) throw Error(`Video id = ${id}, user = ${user} not found!`);
-    else console.log(`--SUCCESS-- get tiktok video id = ${id}, user = ${user}`);
+    await Promise.all([
+        utils.getMiniPage(api_url, options).then(
+            result => { video_info = JSON.parse(result) }
+        ).catch(err => {
+            console.log(`Get video info from url = ${api_url} ERROR: \n${err}!`);
+            video_info = undefined;
+        }),
+        getVideoUrl(web_url).then(
+            result => { video_url = result }
+        ).catch(err => {
+            console.log(`Get video url from url = ${web_url} ERROR: \n${err}!`);
+            video_url = undefined;
+        })
+    ])
 
-    return extract(info);
+    if (!video_info || video_info.statusCode !== 0)
+        throw Error(`Video id = ${id}, user = ${user} not found!`);
+    if (!video_url || !(video_url.watermark || video_url.no_watermark))
+        throw Error(`Get download URL of video id = ${id}, user = ${user} error!`);
+
+    console.log(`--SUCCESS-- get tiktok video id = ${id}, user = ${user}`);
+
+    return extract(video_info, video_url);
+}
+
+const getVideoUrl = async (url) => {
+    return new Promise((resolve, reject) => {
+        axios({
+            method: 'GET',
+            url: 'https://ttdownloader.com/'
+        }).then((data) => {
+            const cookie = data.headers['set-cookie'].join('')
+            const $ = cheerio.load(data.data)
+            const dataPost = {
+                url: url,
+                token: $('#token').attr('value')
+            }
+            axios({
+                method: 'POST',
+                url: 'https://ttdownloader.com/req/',
+                headers: {
+                    'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                    origin: 'https://ttdownloader.com',
+                    referer: 'https://ttdownloader.com/',
+                    cookie: cookie,
+                },
+                data: qs.stringify(dataPost)
+            }).then(({ data }) => {
+                const $ = cheerio.load(data)
+                resolve({
+                    no_watermark: $('#results-list > div:nth-child(2) > div.download > a')?.attr('href'),
+                    watermark: $('#results-list > div:nth-child(3) > div.download > a')?.attr('href'),
+                });
+            }).catch(e => {
+                console.log(e);
+                reject({ no_watermark: '', watermark: '' })
+            })
+        }).catch(e => {
+            console.log(e);
+            reject({ no_watermark: '', watermark: '' })
+        })
+    })
 }
 
 const validate = {
-    URL: (url) =>  /tiktok\.com\/@.+\/video\/\d+/.test(url),
+    URL: (url) => /tiktok\.com\/@.+\/video\/\d+/.test(url),
 }
 
-module.exports = {getVideoIDAndUser, getVideoInfo, validate}
+module.exports = { getVideoIDAndUser, getVideoInfo, validate }

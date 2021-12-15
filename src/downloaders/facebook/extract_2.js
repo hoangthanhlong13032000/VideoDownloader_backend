@@ -11,7 +11,6 @@ const extract = (page) => {
 
         return {
             status: Number(format.videos.length > 0),
-            expiresInSeconds: 0,
             videos: format.videos,
             video_only: format.video_only,
             audio_only: format.audio_only,
@@ -131,7 +130,7 @@ const videoDetails = (page, videoData) => {
             url: videoData.preferred_thumbnail.image.uri,
             height: '',
             width: '',
-            desc: 'originalCover'
+            desc: 'originCover'
         }]
     } catch (err) { details.thumbnails = [] }
 

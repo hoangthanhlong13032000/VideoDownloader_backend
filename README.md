@@ -10,10 +10,13 @@ A web app to download video from youtube, facebook, ...
 
 ## Get video information 
 
-### By id
-`GET /api/video/youtube?id=`
+### By video ID
+`GET /api/video/youtube?id={id}`
 
 `GET /api/video/tiktok?id={id}&user={user}`
+- user is not required
+
+`GET /api/video/facebook?id={id}`
 
     http://localhost:3333/api/video/youtube?id=OnD7mi_-Xso
 
@@ -33,5 +36,71 @@ A web app to download video from youtube, facebook, ...
     body: {"url": "https://www.facebook.com/watch/?v=929610714651858"}
 
 ### Response
-    {status: int, data: [], message: ""}
-    status: 1 - success, 0 - fail
+    // status: 1 - success, 0 - fail
+    {
+        "status": 1,
+        "message": "",
+        "data": {
+            "status": 1,
+            "videos": [
+                {
+                    "url": "",
+                    "mimeType": "video/mp4; codec="h264"",
+                    "container": "mp4",
+                    "quality": "720p",
+                    "audioQuality": "128kbps",
+                    "width": 0,
+                    "height": 0
+                }, {...}, {...}
+            ],
+            "video_only": [
+                {
+                    "url": "",
+                    "mimeType": "",
+                    "container": "",
+                    "quality": "",
+                    "width": 0,
+                    "height": 0
+                }, {...}, {...}
+            ],
+            "audio_only": [
+                {
+                    "url": "",
+                    "mimeType": "",
+                    "container": "",
+                    "audioQuality": ""
+                }, {...}, {...}
+            ],
+            "details": {
+                "id": "",
+                "title": "",
+                "lengthInSeconds": 0,
+                "href": "",
+                "channel": {
+                    "id": "",
+                    "title": "",
+                    "url": "",
+                    "avatar": {
+                        "large": "",
+                        "medium": "",
+                        "thumb": ""
+                    }
+                }
+            },
+            "description": "",
+            "thumbnails": [
+                {
+                "url": "",
+                "height": 0,
+                "width": 0,
+                "desc": ""
+                }, {...}, {...}
+            ],
+            "stats": {
+                "viewCount": 0,
+                "likeCount": 0,
+                "shareCount": 0,
+                "commentCount": 0
+            }
+        },
+    }

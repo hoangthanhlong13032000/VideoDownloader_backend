@@ -1,11 +1,10 @@
 const constants = require("./constant.json");
 
-const extract = (info) => {
-    const format = data(info);
+const extract = (info, url) => {
+    const format = data(info, url);
 
     return {
         status: Number(info.statusCode == 0),
-        expiresInSeconds: expires(info),
         videos: format.videos,
         video_only: format.video_only,
         audio_only: format.audio_only,
@@ -13,7 +12,7 @@ const extract = (info) => {
     };
 }
 
-const data = (info) => {
+const data = (info, url) => {
     const videos = [];
     const video_only = [];
     const audio_only = [];
@@ -22,16 +21,20 @@ const data = (info) => {
         const video = info.itemInfo.itemStruct.video || {};
         const music = info.itemInfo.itemStruct.music || {};
 
-        if(video.playAddr || video.downloadAddr) videos.push({
-            url: video.playAddr || video.downloadAddr,
-            mimeType: `video/${video.format}; codec=\"${video.codecType}\"`,
-            container: video.format || '',
-            quality: video.ratio || video.definition,
-            audioQuality: '',
-            width: video.width,
-            height: video.height
-
-        })
+        for (const type in url) {
+            if(url[type]) {
+                videos.push({
+                    url: url[type],
+                    mimeType: `video/${video.format}; codec=\"${video.codecType}\"`,
+                    container: video.format || '',
+                    quality: `${type}_${video.ratio || video.definition}`,
+                    audioQuality: '',
+                    width: video.width,
+                    height: video.height
+        
+                })
+            }
+        }
 
         if(music.playUrl) audio_only.push({
             url: music.playUrl,
@@ -43,16 +46,6 @@ const data = (info) => {
     return { videos, video_only, audio_only };
 }
 
-
-const expires = (info) => {
-    try {
-        const video = info.itemInfo.itemStruct.video;
-        const url = video.playAddr || video.downloadAddr;
-
-        return url.split('expire=')[1].split('&')[0] - Math.round(new Date().getTime() / 1000);
-    }
-    catch (err) { return '0' }
-}
 
 const details = (info) => {
     const seoProps = info.seoProps || {};

@@ -13,7 +13,6 @@ const extract = (page) => {
 
         return {
             status: Number(format.videos.length > 0),
-            expiresInSeconds: 0,
             videos: format.videos,
             video_only: format.video_only,
             audio_only: format.audio_only,
@@ -132,7 +131,7 @@ const videoDetails = (page, videoData) => {
     }
 
     const thumbnail = utils.findStrings(page, /afterTheAdBreakImage:"/, '"')[0] || '';
-    if (thumbnail) details.thumbnails = [{ url: thumbnail, height: original_height, width: original_width, desc: 'originalCover' }]
+    if (thumbnail) details.thumbnails = [{ url: thumbnail, height: original_height, width: original_width, desc: 'originCover' }]
 
     return details;
 }
