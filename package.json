@@ -23,6 +23,7 @@
     "morgan": "~1.9.1",
     "multer": "^1.4.3",
     "node-fetch": "^2.6.6",
+    "pg-promise": "^10.11.1",
     "puppeteer": "^12.0.1",
     "sax": "^1.2.4",
     "stream": "^0.0.2",
