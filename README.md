@@ -3,6 +3,9 @@ A web app to download video from youtube, facebook, ...
 # File
 - Config file : `.env` : config environment variables (port, database, ...) ...
 
+# Environment Variable:
+```PG_DATABASE_URL=postgres://postgres:${db_password}@${db_host}:${db_port}/postgres?sslmode=disable```
+
 - Main file: `app.js` :
 # Run
     node app.js
@@ -106,3 +109,35 @@ A web app to download video from youtube, facebook, ...
             }
         },
     }
+
+## Save, get, delete videos
+Note: These following APIs need authorization header
+
+### Save video
+
+POST /auth/video
+Body:
+```
+{
+    "user_id": "e9d489aa-492a-4c94-bd6d-28764274b41d",
+    "source": "youtube",
+    "id": "G-17jRBVdQi",
+    "title": "title for video",
+    "description": "description for video",
+    "thumbnail": "http://thumbnail-url.com"
+}
+```
+
+### Get all saved videos
+GET /auth/video
+
+### Delete video
+DELETE /auth/video
+Body: 
+```
+{
+    "user_id": "e9d489aa-492a-4c94-bd6d-28764274b41d",
+    "source": "tiktok",
+    "id": "G-17jRBVdQi",
+}
+```
