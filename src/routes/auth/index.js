@@ -15,7 +15,7 @@ router.use(function (req, res, next) {
 		next();
   } catch (err) {
     res.status(400).send({
-      status: 0,
+      status: 1,
       data: {},
       message: "Cannot parse authorization header!",
     });

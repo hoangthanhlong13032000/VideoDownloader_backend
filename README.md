@@ -111,11 +111,13 @@ A web app to download video from youtube, facebook, ...
     }
 
 ## Save, get, delete videos
-Note: These following APIs need authorization header
+
+Note: These following APIs need Authorization header
 
 ### Save video
 
 POST /auth/video
+
 Body:
 ```
 {
@@ -133,6 +135,7 @@ GET /auth/video
 
 ### Delete video
 DELETE /auth/video
+
 Body: 
 ```
 {
