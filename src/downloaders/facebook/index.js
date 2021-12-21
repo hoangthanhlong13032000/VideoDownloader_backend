@@ -2,7 +2,7 @@ const utils = require('../../utils')
 const extract_1 = require('./extract_1.js')
 const extract_2 = require('./extract_2.js')
 
-const BASE_URL = "https://facebook.com/watch?v=";
+const VIDEO_URL = "https://facebook.com/watch?v=";
 const validate = {
     ID: (id) => /^[0-9]+$/.test(id),
     URL: (url) => /(facebook.com\/)/.test(url)
@@ -38,7 +38,7 @@ const getVideoInfo = async (source) => {
 
     try {
         console.log(`--START-- get facebook video info of id = ${id}`);
-        const page = await utils.getFullPage(BASE_URL + id);
+        const page = await utils.getFullPage(VIDEO_URL + id);
         try {
             info = extract_1(page);
         } catch (e) {

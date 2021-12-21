@@ -48,9 +48,9 @@ const getHeaders = () => ({
     "accept": "application/json, text/plain"
 });
 
-const findObjects = (string, regex, start, end) => {
-    let objects = string.split(regex).slice(1);
-    if(!objects.length) return [];
+const findObjects = (source, regex, start, end) => {
+    let objects = source.split(regex).slice(1);
+    if (!objects.length) return [];
 
     objects = objects.map(str => {
         let count = 0;
@@ -73,11 +73,11 @@ const findObjects = (string, regex, start, end) => {
 
 const findStrings = (string, start, end) => {
     let strs = string.split(start).slice(1);
-    if(!strs.length) return [];
+    if (!strs.length) return [];
 
     strs = strs.map(str => {
         const index = str.indexOf(end);
-        if(index != -1) return str.slice(0, index)
+        if (index != -1) return str.slice(0, index)
         else return undefined;
     });
     return strs.filter(str => str);

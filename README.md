@@ -11,6 +11,13 @@ A web app to download video from youtube, facebook, ...
     node app.js
 # Api
 
+## Search video list 
+
+`GET /api/video/search/youtube?search_query={text}`
+
+    http://localhost:3333/api/search/youtube?search_query=test
+
+
 ## Get video information 
 
 ### By video ID

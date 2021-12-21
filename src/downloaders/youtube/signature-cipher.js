@@ -183,7 +183,7 @@ const getMiniPage5playerURL = (source) => {
 
     if (!html5player_url) throw Error('Unable to find html5player file');
 
-    return new URL(html5player_url, constant.BASE_URL).toString();
+    return new URL(html5player_url, constant.VIDEO_URL).toString();
 };
 
 /**

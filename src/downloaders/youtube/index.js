@@ -1,14 +1,12 @@
 const utils = require('../../utils')
 const extract = require('./extract')
+const constant = require('./constant.json')
 
-/**
- * Get video ID.
- *
- * @param {string} link
- * @return {string}
- * @throws {Error} If unable to find a id
- * @throws {TypeError} If id doesn't match specs
- */
+const validate = {
+    ID: (id) => /^[a-zA-Z0-9-_]{11}$/.test(id),
+    URL: (url) => /(youtu\.be\/)|(youtube.com\/)/.test(url)
+}
+
 const getVideoID = (link) => {
     if (validate.ID(link)) return link;
     if (!validate.URL(link)) throw Error('Not a YouTube domain');
@@ -29,23 +27,13 @@ const getVideoID = (link) => {
     return id;
 };
 
-/**
- * Get video Info.
- *
- * @param {string} source id or url of video
- * @return {string}
- * @throws {Error} If unable to find a id
- * @throws {TypeError} If id doesn't match specs
- */
-
-const BASE_URL = "https://www.youtube.com/watch?v=";
 const getVideoInfo = async (source) => {
-    
+
     console.log(`--START-- get youtube video id of url = ${source}`);
 
     let info = undefined;
     const id = getVideoID(source);
-    const url = BASE_URL + id;
+    const url = constant.VIDEO_URL + id;
     const options = { headers: utils.getHeaders() };
 
     console.log(`--SUCCESS-- get youtube video id of url = ${source}: id = ${id}`);
@@ -53,11 +41,11 @@ const getVideoInfo = async (source) => {
     try {
         console.log(`--START-- get youtube video info of id = ${id}`);
         const page = await utils.getMiniPage(url, options);
-        info = await extract(page, options);
-    } 
+        info = await extract.videoInfo(page, options);
+    }
     catch (err) {
         console.log(`--Error-- getting youtube video id = ${id}: ${err.message}`);
-    } 
+    }
     finally {
         if (!info) throw Error(`Video id = ${id} not found!`);
         else console.log(`--SUCCESS-- get youtube video info of id = ${id}`);
@@ -65,10 +53,26 @@ const getVideoInfo = async (source) => {
     }
 }
 
-const validate = {
-    ID: (id) => /^[a-zA-Z0-9-_]{11}$/.test(id),
-    URL: (url) => /(youtu\.be\/)|(youtube.com\/)/.test(url)
+const searchVideoRenderer = async (search_query = "") => {
+
+    const url = search_query && search_query.length && !Array.isArray(search_query)
+        ? constant.SEARCH_URL + search_query : constant.BASE_URL;
+
+    console.log(`--START-- get youtube video list: url = [${url}]`)
+
+    const page = await utils.getMiniPage(url);
+
+    const videos = [];
+    const videoRenderers = utils.findObjects(page, /\"videoRenderer\":/, '{', '}') || [];
+
+    for (const videoRenderer of videoRenderers) {
+        try {
+            videos.push(extract.videoRenderer(videoRenderer))
+        } catch (err) { console.log(err.message); }
+    }
+
+    console.log(`--SUCCESS-- get youtube video list: total ${videos.length} videos!`);
+    return videos;
 }
 
-
-module.exports = { getVideoID, getVideoInfo, validate }
+module.exports = { getVideoID, getVideoInfo, searchVideoRenderer, validate }

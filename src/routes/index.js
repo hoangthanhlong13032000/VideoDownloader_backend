@@ -1,8 +1,10 @@
 const videoRouters = require('./video');
-const authRouters = require('./auth')
+const searchRouters = require('./search');
+const authRouters = require('./auth');
 
 route = (app) => {
   app.use('/api/video', videoRouters);
+  app.use('/api/search', searchRouters);
   app.use('/auth', authRouters)
 }
 

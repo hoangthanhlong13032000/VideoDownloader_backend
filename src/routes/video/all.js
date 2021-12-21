@@ -15,8 +15,10 @@ const getVideoByUrl = async (req, res) => {
     else if (tiktok.validate.URL(url)) downloader = tiktok;
     else if (facebook.validate.URL(url)) downloader = facebook;
     // more platforms here
-    else res.status(400).send({ status: 0, data: {}, message: 'Domain is not supported!' });
-
+    else {
+        res.status(400).send({ status: 0, data: {}, message: 'Domain is not supported!' });
+        return;
+    }
 
     if (downloader) {
         downloader.getVideoInfo(url)

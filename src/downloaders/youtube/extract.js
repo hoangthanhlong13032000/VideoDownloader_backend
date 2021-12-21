@@ -1,20 +1,10 @@
 const signature_cipher = require('./signature-cipher');
 const constants = require("./constant.json");
 
+const videoInfo = async (source, options) => {
+    const INFO_VAR = "ytInitialPlayerResponse";
+    const INFO_ATTR = ["playabilityStatus", "streamingData", "videoDetails", "microformat"];
 
-/**
- * get a variable from string.
- *
- * @param {string} name
- * @param {string} source
- * @param {Object} options
- * @return {Object}
- */
-
-const INFO_VAR = "ytInitialPlayerResponse";
-const INFO_ATTR = ["playabilityStatus", "streamingData", "videoDetails", "microformat"];
-
-const extract = async (source, options) => {
     try {
         const info = {};
 
@@ -30,7 +20,7 @@ const extract = async (source, options) => {
 
         const format = data(info);
         return {
-            status: status(info),
+            status: Number(info?.playabilityStatus?.status == 'OK'),
             videos: format.videos,
             video_only: format.video_only,
             audio_only: format.audio_only,
@@ -40,12 +30,6 @@ const extract = async (source, options) => {
         throw Error(`Error when extract youtube html page: ${e}`);
     }
 }
-
-/**
- * @param {Object} format
- * @returns {Object}
- */
-
 const data = (info) => {
     const videos = [];
     const video_only = [];
@@ -86,26 +70,31 @@ const data = (info) => {
     } catch (err) { console.log(err); }
     return { videos, video_only, audio_only };
 }
-
-const status = (info) => {
-    try { return Number(info.playabilityStatus.status == 'OK') }
-    catch (err) { return 0 }
-}
-
 const details = (info) => {
-    const videoDetails = info.videoDetails;
-    const microformat = info.microformat ? info.microformat.playerMicroformatRenderer || {} : {};
+    const videoDetails = info.videoDetails || {};
+    const microformat = info.microformat?.playerMicroformatRenderer || {};
+
+    const video_id = videoDetails.videoId || '';
+    const video_url = video_id ? constants.VIDEO_URL + video_id : '';
+
+    const channel_id = videoDetails.channelId || microformat.externalChannelId || '';
+    const channel_url = channel_id ? constants.CHANNEL_URL + '/' + channel_id : '';
 
     return {
-        id: videoDetails.videoId || '',
-        title: title(videoDetails, microformat),
-        lengthInSeconds: length(videoDetails, microformat),
-        href: constants.BASE_URL + videoDetails.videoId,
-        channel: channel(videoDetails, microformat),
-        description: description(videoDetails, microformat),
-        thumbnails: thumbnails(videoDetails, microformat),
+        id: video_id,
+        title: videoDetails.title || microformat.title?.simpleText || '',
+        lengthInSeconds: videoDetails.lengthSeconds || microformat.lengthSeconds || '0',
+        href: video_url,
+        channel: {
+            id: channel_id,
+            title: videoDetails.author || microformat.ownerChannelName || '',
+            url: channel_url,
+            avatar: {},
+        },
+        description: videoDetails.shortDescription || microformat.description?.simpleText || '',
+        thumbnails: videoDetails.thumbnail?.thumbnails || microformat.thumbnail?.thumbnails || [],
         stats: {
-            viewCount: viewCount(videoDetails, microformat),
+            viewCount: videoDetails.viewCount || microformat.viewCount || 0,
             likeCount: 0,
             shareCount: 0,
             commentCount: 0,
@@ -113,41 +102,43 @@ const details = (info) => {
     };
 }
 
-const title = (videoDetails, microformat) => {
-    try { return videoDetails.title || microformat.title.simpleText || '' }
-    catch (err) { return '' }
-}
-const length = (videoDetails, microformat) => {
-    try { return videoDetails.lengthSeconds || microformat.lengthSeconds || '0' }
-    catch (err) { return '0' }
-}
-const channel = (videoDetails, microformat) => {
-    try {
-        const id = videoDetails.channelId || microformat.externalChannelId || '';
-        return {
-            id: id,
-            title: videoDetails.author || microformat.ownerChannelName || '',
-            url: constants.CHANNEL_URL + `/${id}`,
-            avatar: {},
+
+
+const videoRenderer = (renderer) => {
+    const video_id = renderer?.videoId;
+    if (!renderer || !video_id) throw Error(`Cant not extract videoRenderer id = ${video_id}`);
+
+    const channel = renderer.ownerText?.runs?.[0] || {};
+    const channel_title = channel.text || "";
+    const channel_path = channel.navigationEndpoint?.commandMetadata?.webCommandMetadata?.url || "";
+    const channel_id = channel_path.split('channel/')[1] || "";
+
+    return {
+        id: video_id,
+        lengthInText: renderer.lengthText?.simpleText,
+        title: getRunsText(renderer.title?.runs),
+        publishedTime: renderer.publishedTimeText?.simpleText || "",
+        href: constants.VIDEO_URL + video_id,
+        thumbnails: renderer.thumbnail?.thumbnails || [],
+        channel: {
+            id: channel_id,
+            title: channel_title,
+            url: constants.BASE_URL + channel_path,
+            avatar: {
+                thumb: renderer.channelThumbnailSupportedRenderers?.channelThumbnailWithLinkRenderer?.thumbnail?.thumbnails?.[0]?.url || ""
+            },
+        },
+        description: getRunsText(renderer.detailedMetadataSnippets?.[0]?.snippetText?.runs || renderer.descriptionSnippet?.runs),
+        stats: {
+            viewCount: renderer.viewCountText?.simpleText,
         }
     }
-    catch (err) { return { id: '', title: '', url: '', avatar: {}} }
 }
-const description = (videoDetails, microformat) => {
-    try { return videoDetails.shortDescription || microformat.description.simpleText || '' }
-    catch (err) { return '' }
+
+const getRunsText = (runs) => {
+    let text = "";
+    if (Array.isArray(runs)) runs.forEach(run => text += run.text || "");
+    return text;
 }
-const thumbnails = (videoDetails, microformat) => {
-    try {
-        const thumbnail = videoDetails.thumbnail || microformat.thumbnail;
-        return thumbnail.thumbnails || []
-    }
-    catch (err) { return [] }
-}
-const viewCount = (videoDetails, microformat) => {
-    try {
-        return videoDetails.viewCount || microformat.viewCount || '0'
-    }
-    catch (err) { return '0' }
-}
-module.exports = extract
+
+module.exports = { videoInfo, videoRenderer }

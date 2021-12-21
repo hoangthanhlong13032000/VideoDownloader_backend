@@ -1,6 +1,8 @@
 {
-  "BASE_URL": "https://www.youtube.com/watch?v=",
+  "BASE_URL": "https://www.youtube.com",
+  "VIDEO_URL": "https://www.youtube.com/watch?v=",
   "CHANNEL_URL": "https://www.youtube.com/channel",
+  "SEARCH_URL": "https://www.youtube.com/results?search_query=",
   "FORMATS": {
     "5": {
       "mimeType": "video/flv; codecs=\"Sorenson H.283, mp3\"",
