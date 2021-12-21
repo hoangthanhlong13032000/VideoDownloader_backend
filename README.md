@@ -14,9 +14,10 @@ A web app to download video from youtube, facebook, ...
 ## Search video list 
 
 `GET /api/video/search/youtube?search_query={text}`
+- search_query is not required
 
     http://localhost:3333/api/search/youtube?search_query=test
-
+    http://localhost:3333/api/search/youtube
 
 ## Get video information 
 
