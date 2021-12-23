@@ -53,9 +53,10 @@ const getVideoInfo = async (source) => {
     }
 }
 
-const searchVideoRenderer = async (search_query = "") => {
+const searchVideoRenderer = async (search_query = "", url) => {
 
-    const url = search_query && search_query.length && !Array.isArray(search_query)
+    console.log(url);
+    if (!url) url = search_query && search_query.length && !Array.isArray(search_query)
         ? constant.SEARCH_URL + search_query : constant.BASE_URL;
 
     console.log(`--START-- get youtube video list: url = [${url}]`)
@@ -75,4 +76,4 @@ const searchVideoRenderer = async (search_query = "") => {
     return videos;
 }
 
-module.exports = { getVideoID, getVideoInfo, searchVideoRenderer, validate }
+module.exports = { getVideoID, getVideoInfo, searchVideoRenderer, validate, constant }

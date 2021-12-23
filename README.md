@@ -18,6 +18,10 @@ A web app to download video from youtube, facebook, ...
 
     http://localhost:3333/api/search/youtube?search_query=test
     http://localhost:3333/api/search/youtube
+    http://localhost:3333/api/search/youtube/trending
+    http://localhost:3333/api/search/youtube/music
+    http://localhost:3333/api/search/youtube/movie
+    http://localhost:3333/api/search/youtube/gaming
 
 ## Get video information 
 
@@ -31,7 +35,7 @@ A web app to download video from youtube, facebook, ...
 
 `GET /api/video/facebook?id={id}`
 
-    http://localhost:3333/api/video/youtube?id=OnD7mi_-Xso
+    http://localhost:3333/api/video/youtube?id=9X-heUObD14
 
     http://localhost:3333/api/video/tiktok?id=7027810020414737691&user=@cheeseinurdream
 
@@ -42,7 +46,7 @@ A web app to download video from youtube, facebook, ...
 
     http://localhost:3333/api/video/all
 
-    body: {"url": "https://youtube.com/watch?v=OnD7mi_-Xso"}
+    body: {"url": "https://youtube.com/watch?v=9X-heUObD14"}
 
     body: {"url": "https://www.tiktok.com/@cheeseinurdream/video/7027810020414737691"}
 

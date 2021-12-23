@@ -53,17 +53,22 @@ const getVideoInfo = async (source) => {
     const web_url = `${BASE_HTML_URL}/${user}/video/${id}`;
 
     await Promise.all([
-        utils.getMiniPage(api_url, options).then(
-            result => { video_info = JSON.parse(result) }
+        utils.getFullPage(api_url, {}).then(
+            result => { 
+                video_info = JSON.parse(result);
+                video_url = {
+                    "watermark": video_info?.itemInfo?.itemStruct?.video?.playAddr
+                }
+            }
         ).catch(err => {
             console.log(`Get video info from url = ${api_url} ERROR: \n${err}!`);
             video_info = undefined;
+            video_url = undefined;
         }),
         getVideoUrl(web_url).then(
             result => { video_url = result }
         ).catch(err => {
             console.log(`Get video url from url = ${web_url} ERROR: \n${err}!`);
-            video_url = undefined;
         })
     ])
 

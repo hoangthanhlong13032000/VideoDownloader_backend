@@ -8,6 +8,7 @@ const extract = (info, url) => {
         videos: format.videos,
         video_only: format.video_only,
         audio_only: format.audio_only,
+        recommends: [],
         details: details(info)
     };
 }
@@ -28,7 +29,7 @@ const data = (info, url) => {
                     mimeType: `video/${video.format}; codec=\"${video.codecType}\"`,
                     container: video.format || '',
                     quality: `${type}_${video.ratio || video.definition}`,
-                    audioQuality: '',
+                    audioQuality: '128kbps',
                     width: video.width,
                     height: video.height
         
@@ -40,7 +41,7 @@ const data = (info, url) => {
             url: music.playUrl,
             mimeType: '',
             container: 'mp3',
-            audioQuality: '',
+            audioQuality: '128kbps',
         })
     } catch (err) { console.log(err); }
     return { videos, video_only, audio_only };

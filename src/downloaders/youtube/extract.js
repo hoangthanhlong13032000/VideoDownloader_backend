@@ -1,18 +1,22 @@
 const signature_cipher = require('./signature-cipher');
 const constants = require("./constant.json");
+const utils = require("../../utils");
 
 const videoInfo = async (source, options) => {
+
     const INFO_VAR = "ytInitialPlayerResponse";
     const INFO_ATTR = ["playabilityStatus", "streamingData", "videoDetails", "microformat"];
 
     try {
         const info = {};
 
-        const regex = new RegExp(`\\b${INFO_VAR}\\s*=\\s*{`, 'i');
-        let json = source.slice(source.search(regex))
-        json = json.slice(json.search('{'), json.search('};') + 1);
+        // const regex = new RegExp(`\\b${INFO_VAR}\\s*=\\s*{`, 'i');
+        // let json = source.slice(source.search(regex))
+        // json = json.slice(json.search('{'), json.search('};') + 1);
 
-        const object = JSON.parse(json);
+        // const object = JSON.parse(json);
+
+        let object = utils.findObjects(source, /var ytInitialPlayerResponse = /, "{", "}")[0];
 
         for (const attr of INFO_ATTR) info[attr] = object[attr] ? object[attr] : {};
 
@@ -24,6 +28,7 @@ const videoInfo = async (source, options) => {
             videos: format.videos,
             video_only: format.video_only,
             audio_only: format.audio_only,
+            recommends: recommends(source),
             details: details(info)
         };
     } catch (e) {
@@ -68,6 +73,7 @@ const data = (info) => {
             }
         }
     } catch (err) { console.log(err); }
+
     return { videos, video_only, audio_only };
 }
 const details = (info) => {
@@ -101,22 +107,33 @@ const details = (info) => {
         }
     };
 }
-
+const recommends = (source) => {
+    const videos = [];
+    const videoRenderers = utils.findObjects(source, /\"compactVideoRenderer\":/, '{', '}') || [];
+    for (const vr of videoRenderers) {
+        try { videos.push(videoRenderer(vr)) }
+        catch (err) { console.log(err.message); }
+    }
+    return videos;
+}
 
 
 const videoRenderer = (renderer) => {
     const video_id = renderer?.videoId;
     if (!renderer || !video_id) throw Error(`Cant not extract videoRenderer id = ${video_id}`);
+    const video_title = getRunsText(renderer.title?.runs) || renderer.title?.simpleText || "";
+    const video_description = getRunsText(renderer.detailedMetadataSnippets?.[0]?.snippetText?.runs || renderer.descriptionSnippet?.runs) || video_title || "";
 
-    const channel = renderer.ownerText?.runs?.[0] || {};
+    const channel = (renderer.ownerText || renderer.longBylineText)?.runs?.[0];
     const channel_title = channel.text || "";
     const channel_path = channel.navigationEndpoint?.commandMetadata?.webCommandMetadata?.url || "";
     const channel_id = channel_path.split('channel/')[1] || "";
+    const channel_thumbnails = renderer.channelThumbnailSupportedRenderers?.channelThumbnailWithLinkRenderer?.thumbnail?.thumbnails || renderer.channelThumbnail?.thumbnails || [];
 
     return {
         id: video_id,
         lengthInText: renderer.lengthText?.simpleText,
-        title: getRunsText(renderer.title?.runs),
+        title: video_title,
         publishedTime: renderer.publishedTimeText?.simpleText || "",
         href: constants.VIDEO_URL + video_id,
         thumbnails: renderer.thumbnail?.thumbnails || [],
@@ -125,10 +142,10 @@ const videoRenderer = (renderer) => {
             title: channel_title,
             url: constants.BASE_URL + channel_path,
             avatar: {
-                thumb: renderer.channelThumbnailSupportedRenderers?.channelThumbnailWithLinkRenderer?.thumbnail?.thumbnails?.[0]?.url || ""
+                thumb: channel_thumbnails?.[0]?.url || ""
             },
         },
-        description: getRunsText(renderer.detailedMetadataSnippets?.[0]?.snippetText?.runs || renderer.descriptionSnippet?.runs),
+        description: video_description,
         stats: {
             viewCount: renderer.viewCountText?.simpleText,
         }

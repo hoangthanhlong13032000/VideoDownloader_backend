@@ -3,6 +3,10 @@
   "VIDEO_URL": "https://www.youtube.com/watch?v=",
   "CHANNEL_URL": "https://www.youtube.com/channel",
   "SEARCH_URL": "https://www.youtube.com/results?search_query=",
+  "TRENDING_URL": "https://www.youtube.com/feed/trending",
+  "MUSIC_URL": "https://www.youtube.com/feed/trending?bp=4gINGgt5dG1hX2NoYXJ0cw%3D%3D",
+  "GAMING_URL": "https://www.youtube.com/feed/trending?bp=4gIcGhpnYW1pbmdfY29ycHVzX21vc3RfcG9wdWxhcg%3D%3D",
+  "MOVIE_URL": "https://www.youtube.com/feed/trending?bp=4gIKGgh0cmFpbGVycw%3D%3D",
   "FORMATS": {
     "5": {
       "mimeType": "video/flv; codecs=\"Sorenson H.283, mp3\"",

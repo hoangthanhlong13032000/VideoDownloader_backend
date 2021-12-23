@@ -1,26 +1,20 @@
-const utils = require('../utils');
-const fs = require('fs')
-
-
-const youtube = require('../downloaders/youtube')
-
-// youtube.searchVideoList('long').then(
+const axios = require('axios');
+const utils = require('../utils')
+const api_url = "https://www.tiktok.com/node/share/video/@cheeseinurdream/7027810020414737691"
+// utils.getFullPage(api_url).then(
 //     result => {
-//         console.log(result.length);
+//         console.log(result);
 //     }
-// )
-console.time('a')
-let search = "bao+tiền+một+mớ+bình+yên";
-search = "bao tiền một mớ bình yên"
+// ).catch(err => {
+//     console.log(`Get video info from url = ${api_url} ERROR: \n${err}!`);
+// });
 
-youtube.searchVideoRenderer(search).then(
-    result => {
-        // fs.writeFile("./test.json", JSON.stringify(result), function(err) {
-        //     if(err) {
-        //         return console.log(err);
-        //     }
-        //     console.log("The file was saved!");
-        // }); 
-        console.timeEnd('a')
-    }
-)
+axios.get("https://www.tiktok.com/node/share/video/@cheeseinurdream/7027810020414737691",
+    { headers: { 'User-Agent': 'Thunder Client (https://www.thunderclient.io)' } }).then(
+        result => {
+            console.log(result);
+        }
+    ).catch(err => {
+        console.log(err.response);
+        console.log(`Get video info from url = ${api_url} ERROR: \n${err.response}!`);
+    });

@@ -16,6 +16,7 @@ const extract = (page) => {
             videos: format.videos,
             video_only: format.video_only,
             audio_only: format.audio_only,
+            recommends: [],
             details: details
         };
     } catch (e) {
