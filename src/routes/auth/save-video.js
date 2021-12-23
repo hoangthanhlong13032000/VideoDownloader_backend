@@ -23,7 +23,7 @@ const saveVideo = async (req, res) => {
         .send({
           status: 1,
           data: {},
-          message: "Cannot save this video.",
+          message: "This video already exists.",
           dev_message: error.toString(),
         });
     });
