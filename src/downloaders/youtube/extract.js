@@ -88,6 +88,7 @@ const details = (info) => {
 
     return {
         id: video_id,
+        source: 'youtube',
         title: videoDetails.title || microformat.title?.simpleText || '',
         lengthInSeconds: videoDetails.lengthSeconds || microformat.lengthSeconds || '0',
         href: video_url,

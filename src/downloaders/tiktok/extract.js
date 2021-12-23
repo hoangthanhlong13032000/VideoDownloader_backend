@@ -59,6 +59,7 @@ const details = (info) => {
 
     return {
         id: video.id || itemStruct.id || seoProps.pageId || '',
+        source: 'tiktok',
         title: metaParams.title || itemStruct.desc || '',
         lengthInSeconds: video.duration || 0,
         href: metaParams.canonicalHref || '',

@@ -100,6 +100,7 @@ const videoDetails = (page, videoData) => {
 
     const details = {
         id: videoData.videoId || videoData.id || '',
+        source: 'facebook',
         title: page_info.articleBody.split('\n')[0],
         lengthInSeconds: Math.round((videoData.playable_duration_in_ms || 0) / 1000),
         href: page_info.url || videoData.permalink_url || '',

@@ -108,6 +108,7 @@ const videoDetails = (page, videoData) => {
 
     const details = {
         id: '',
+        source: 'facebook',
         title: page_info.articleBody.split('\n')[0],
         lengthInSeconds: 0,
         href: page_info.url,
