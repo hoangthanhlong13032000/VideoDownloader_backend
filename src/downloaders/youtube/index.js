@@ -55,7 +55,6 @@ const getVideoInfo = async (source) => {
 
 const searchVideoRenderer = async (search_query = "", url) => {
 
-    console.log(url);
     if (!url) url = search_query && search_query.length && !Array.isArray(search_query)
         ? constant.SEARCH_URL + search_query : constant.BASE_URL;
 

@@ -88,8 +88,10 @@ A web app to download video from youtube, facebook, ...
                     "audioQuality": ""
                 }, {...}, {...}
             ],
+            "recommends": [],
             "details": {
                 "id": "",
+                "source": "",
                 "title": "",
                 "lengthInSeconds": 0,
                 "href": "",

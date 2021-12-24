@@ -4,21 +4,15 @@ const utils = require("../../utils");
 
 const videoInfo = async (source, options) => {
 
-    const INFO_VAR = "ytInitialPlayerResponse";
     const INFO_ATTR = ["playabilityStatus", "streamingData", "videoDetails", "microformat"];
 
     try {
         const info = {};
 
-        // const regex = new RegExp(`\\b${INFO_VAR}\\s*=\\s*{`, 'i');
-        // let json = source.slice(source.search(regex))
-        // json = json.slice(json.search('{'), json.search('};') + 1);
+        let ytIniplayres = utils.findObjects(source, /var ytInitialPlayerResponse = /, "{", "}")[0];
+        let ownerRenderer = utils.findObjects(source, /\"videoOwnerRenderer\":\s*/, "{", "}")[0];
 
-        // const object = JSON.parse(json);
-
-        let object = utils.findObjects(source, /var ytInitialPlayerResponse = /, "{", "}")[0];
-
-        for (const attr of INFO_ATTR) info[attr] = object[attr] ? object[attr] : {};
+        for (const attr of INFO_ATTR) info[attr] = ytIniplayres[attr] ? ytIniplayres[attr] : {};
 
         await signature_cipher.decipherFormats(info.streamingData, source, options);
 
@@ -29,7 +23,7 @@ const videoInfo = async (source, options) => {
             video_only: format.video_only,
             audio_only: format.audio_only,
             recommends: recommends(source),
-            details: details(info)
+            details: details(info, ownerRenderer)
         };
     } catch (e) {
         throw Error(`Error when extract youtube html page: ${e}`);
@@ -76,7 +70,7 @@ const data = (info) => {
 
     return { videos, video_only, audio_only };
 }
-const details = (info) => {
+const details = (info, ownerRenderer) => {
     const videoDetails = info.videoDetails || {};
     const microformat = info.microformat?.playerMicroformatRenderer || {};
 
@@ -85,6 +79,7 @@ const details = (info) => {
 
     const channel_id = videoDetails.channelId || microformat.externalChannelId || '';
     const channel_url = channel_id ? constants.CHANNEL_URL + '/' + channel_id : '';
+    const channel_thumbs = ownerRenderer?.thumbnail?.thumbnails || [];
 
     return {
         id: video_id,
@@ -96,7 +91,11 @@ const details = (info) => {
             id: channel_id,
             title: videoDetails.author || microformat.ownerChannelName || '',
             url: channel_url,
-            avatar: {},
+            avatar: {
+                large: channel_thumbs[2]?.url || "",
+                medium: channel_thumbs[1]?.url || "",
+                thumb: channel_thumbs[0]?.url || "",
+            },
         },
         description: videoDetails.shortDescription || microformat.description?.simpleText || '',
         thumbnails: videoDetails.thumbnail?.thumbnails || microformat.thumbnail?.thumbnails || [],
