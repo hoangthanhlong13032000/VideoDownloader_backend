@@ -9,23 +9,34 @@ A web app to download video from youtube, facebook, ...
 - Main file: `app.js` :
 # Run
     node app.js
-# Api
 
-## Search video list 
+# Search video list 
 
 `GET /api/video/search/youtube?search_query={text}`
-- search_query is not required
 
     http://localhost:3333/api/search/youtube?search_query=test
-    http://localhost:3333/api/search/youtube
-    http://localhost:3333/api/search/youtube/trending
-    http://localhost:3333/api/search/youtube/music
-    http://localhost:3333/api/search/youtube/movie
-    http://localhost:3333/api/search/youtube/gaming
 
-## Get video information 
+    http://localhost:3333/api/search/youtube?from={index}&to={index}
 
-### By video ID
+    http://localhost:3333/api/search/youtube/trending?from={index}&to={index}
+
+    http://localhost:3333/api/search/youtube/music?from={index}&to={index}
+
+    http://localhost:3333/api/search/youtube/movie?from={index}&to={index}
+
+    http://localhost:3333/api/search/youtube/gaming?from={index}&to={index}
+
+- search_query is not required
+- from, to are not required
+
+# Autocomplete video search
+`GET /api/suggest?search_query={text}`
+    
+    http://localhost:3333/api/suggest?search_query=faded
+
+# Get video information 
+
+## By video ID
 `GET /api/video/youtube?id={id}`
 
 `GET /api/video/tiktok?id={id}&user={user}`
@@ -41,7 +52,7 @@ A web app to download video from youtube, facebook, ...
 
     http://localhost:3333/api/video/facebook?id=929610714651858
 
-### By url
+## By url
 `POST /api/video/all`
 
     http://localhost:3333/api/video/all
@@ -62,7 +73,7 @@ A web app to download video from youtube, facebook, ...
             "videos": [
                 {
                     "url": "",
-                    "mimeType": "video/mp4; codec="h264"",
+                    "mimeType": "audi",
                     "container": "mp4",
                     "quality": "720p",
                     "audioQuality": "128kbps",
@@ -105,32 +116,33 @@ A web app to download video from youtube, facebook, ...
                         "thumb": ""
                     }
                 }
+                "description": "",
+                "thumbnails": [
+                    {
+                    "url": "",
+                    "height": 0,
+                    "width": 0,
+                    "desc": ""
+                    }, {...}, {...}
+                ],
+                "stats": {
+                    "viewCount": 0,
+                    "likeCount": 0,
+                    "shareCount": 0,
+                    "commentCount": 0
+                }
             },
-            "description": "",
-            "thumbnails": [
-                {
-                "url": "",
-                "height": 0,
-                "width": 0,
-                "desc": ""
-                }, {...}, {...}
-            ],
-            "stats": {
-                "viewCount": 0,
-                "likeCount": 0,
-                "shareCount": 0,
-                "commentCount": 0
-            }
         },
     }
 
-## Save, get, delete videos
+
+# Save, get, delete videos
 
 Note: These following APIs need Authorization header
 
-### Save video
+## Save video
 
-POST /auth/video
+`POST /auth/video`
 
 Body:
 ```
@@ -144,11 +156,11 @@ Body:
 }
 ```
 
-### Get all saved videos
-GET /auth/video
+## Get all saved videos
+`GET /auth/video`
 
-### Delete video
-DELETE /auth/video
+## Delete video
+`DELETE /auth/video`
 
 Body: 
 ```

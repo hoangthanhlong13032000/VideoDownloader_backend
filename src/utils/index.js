@@ -44,8 +44,10 @@ const getFullPage = async (url) => {
 const getUserAgent = () => `Mozilla/5.0 (${os[Math.floor(Math.random() * os.length)]}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${Math.floor(Math.random() * 3) + 87}.0.${Math.floor(Math.random() * 190) + 4100}.${Math.floor(Math.random() * 50) + 140} Safari/537.36`;
 
 const getHeaders = () => ({
-    "User-Agent": getUserAgent(),
-    "accept": "application/json, text/plain"
+    headers: {
+        "User-Agent": getUserAgent(),
+        "accept": "application/json, text/plain"
+    }
 });
 
 const findObjects = (source, regex, start, end) => {

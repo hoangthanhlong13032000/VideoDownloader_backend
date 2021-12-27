@@ -1,0 +1,70 @@
+Video Downloader 
+
+- Công nghệ sử dụng: javascript language, nodejs, express.js 
+
+- Các package quan trọng: cherrio, jsdom, miniget, axios, puppeteer 
+
+- Các thông tin của 1 video có thể lấy được:  
+
+    + videos: bao gồm 1 mảng các video có cả hình và tiếng, mỗi 1 video có các thông tin: 
+        url: url của video từ nguồn của youtube, từ url này có thể stream trực tiếp trên web hoặc download về 
+        mimeType (vd: video/mp4; codec="h264"), 
+        container (mp4, webm, ...), 
+        quality: (720p, 360p,..), 
+        audioQuality: (128kbps, ...)
+        width, height: chiều dài, rộng của video
+    + video_only: bao gồm 1 mảng các video chỉ có hình ảnh
+    + audio_only: bao gồm 1 mảng các audio chỉ có tiếng
+    + recommends: 1 list các videos được gợi ý, liên quan tới video chính
+    + details: thông tin chi tiết của video
+        * id, title(name), description, lengthInSeconds, href (url youtube của video)
+        * thông tin về channel, owner như: id, title(name), channel_url, channel_img (nhiều kích cỡ khác nhau)
+        * ảnh của video (nhiêu kích cỡ khác nhau)
+        * thống kê của video: lượt xem, lượt thích, lượt chia sẻ, lượt bình luận
+
+- Cách lấy thông tin video từ youtube:  
+
+    b1: trích xuất id từ url: url của youtube có các dạng: "https://www.youtube.com/watch?v=0rHc47sn8-A", "https://youtu.be/0rHc47sn8-A" , xử lí chuỗi ta sẽ lấy được id là "0rHc47sn8-A" hoặc "0rHc47sn8-A"
+
+	b2: lấy file source (html file) từ url của video (vd: " youtube.com/watch?v=0rHc47sn8-A") bằng cách sử dụng miniget hoặc axios để gọi một GET request, response nhận được sẽ có dạng string là source code của trang web 
+
+	b3: từ string source code của trang web ta sẽ cần lưu ý tới 3 biến quan trọng có tên là " ytInitialData", "ytInitialPlayerResponse” và "videoOwnerRenderer", cả 3 biến trên đều có dạng json, ta cắt ra được từ source code ban đầu bằng cách tìm tên 3 biến này trong source code rồi cắt phần ở giữa dấu "{" và "}" 
+
+	b4: 
+        + từ biến ytInitialData ta trích xuất phần cần thiết lấy được thông tin về chủ sở hữu video như: ảnh, tên, id,  ...
+        + dữ liệu từ biến ytInitialPlayerResponse là quan trọng nhất, từ thông tin cắt từ biến này ta có thể lấy được phần lớn các thông tin về video và url
+        + các biến videoOwnerRenderer sẽ giúp ta lấy được thông tin về danh sách các video có liên quan, suggested videos
+
+- Cách lấy thông tin video từ tiktok:
+
+    b1: tương tự như youtube, từ url của tiktok ta sẽ trích xuất ra được id và user id của video:
+        vd: "https://www.tiktok.com/@cheeseinurdream/video/7027810020414737691" thì id = 7027810020414737691 và user_name = @cheeseinurdream
+    b2: sau khi đó ta sẽ truy cập vào api sau để lây thông in:
+        "https://www.tiktok.com/node/share/video/@cheeseinurdream/7027810020414737691"
+        Lưu ý: khi gửi GET request bằng axios hoặc miniget để lấy dữ liệu thì có thể sẽ bị block (status code là 403 hoặc 405), khi trường hợp này xảy ra thì cần dùng tới puppeeter (đây là 1 package giúp ta mở 1 chrome ảo và truy cập url trên để get source code, cách này sẽ chậm hơn so với gọi 1 GET request và tốn tài nguyên server vì cần mở 1 tab chrome)
+    b3: từ api trên ta cũng có đây đủ thông tin về video như của youtube
+    b4: ngoài ra để lấy được thêm video mà không có watermark (video no watermark là video không có logo tiktok trong video (hay video gốc người dùng đăng))
+        + ta gửi 1 GET request đến trang "https://ttdownloader.com/" để lấy source
+        + từ source này ta tìm đến tag <div> có id là token để lấy được token đồng thời lấy cookie từ response header
+        + ta gửi 1 POST request tới url 'https://ttdownloader.com/req/' với headers gồm cookie đã lấy ở trên và body bao gồm url tiktok và token 
+            vd: {
+                method: 'POST',
+                url: 'https://ttdownloader.com/req/',
+                headers: {
+                    'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                    origin: 'https://ttdownloader.com',
+                    referer: 'https://ttdownloader.com/',
+                    cookie: "PHPSESSID=lbtj1o9scl89i7ceeojnfobcu0; path=/popCookie=1; expires=Fri, 24-Dec-2021 16:11:26 GMT; Max-Age=400; path=/; domain=ttdownloader.com",
+                },
+                data: {
+                    url: 'https://www.tiktok.com/@cheeseinurdream/video/7027810020414737691',
+                    token: 'd3fa6c3ddeebae93862321692cd9bb4f64733c90cdee9895cdc694853ca3f6d9'
+                }
+            }
+        + kết quả trả về là 1 source html code, ta tìm đến tag div có class là download và lấy được url cần thiết cho videos
+        * cách package jsdom, cherrio sẽ giúp tìm được tag với id và class biết trước
+
+- Cách lấy thông tin video từ facebook:
+    + lấy thông tin ờ facebook là phức tạp nhất và sẽ tốn thời gian, tài nguyên server nhất
+    b1: sử dụng puppeeter để mở page facebook và đợi page load xog (vì facebook sau khi load page mới load data video nên không thể dùng Get request để lấy source code như bình thường) sau khi page đã load xong thì ta lấy được source đầy đủ
+    + khi đã có source html code của video facebook page thì ta sử dụng jsdom, cherrio, xử lí chuỗi, regular expression để lấy được thông tin cần thiết ở các tag, lượng thông tin lấy được từ facebook cũng ít hơn ở youtube và tiktok

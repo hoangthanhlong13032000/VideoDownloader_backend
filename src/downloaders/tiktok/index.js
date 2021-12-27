@@ -42,7 +42,6 @@ const BASE_HTML_URL = CONSTANT.BASE_URL;
 
 const getVideoInfo = async (source) => {
     const { user, id } = getVideoIDAndUser(source);
-    const options = { headers: utils.getHeaders() };
 
     console.log(`--START-- get tiktok video id = ${id}, user = ${user}`);
 
@@ -52,21 +51,35 @@ const getVideoInfo = async (source) => {
     const api_url = `${BASE_API_URL}/${user}/${id}`;
     const web_url = `${BASE_HTML_URL}/${user}/video/${id}`;
 
+    const options = utils.getHeaders();
+
     await Promise.all([
-        utils.getFullPage(api_url, {}).then(
-            result => { 
+        utils.getMiniPage(api_url, options).then(
+            result => {
                 video_info = JSON.parse(result);
                 video_url = {
-                    "watermark": video_info?.itemInfo?.itemStruct?.video?.playAddr
+                    "play_addr": video_info?.itemInfo?.itemStruct?.video?.playAddr,
+                    "download_addr": video_info?.itemInfo?.itemStruct?.video?.downloadAddr
                 }
             }
         ).catch(err => {
-            console.log(`Get video info from url = ${api_url} ERROR: \n${err}!`);
-            video_info = undefined;
-            video_url = undefined;
+            console.log(`Get mini page ERROR: ${err.message}, retry get full page ...`);
+            utils.getFullPage(api_url, options).then(
+                result => {
+                    video_info = JSON.parse(result);
+                    video_url = {
+                        "play_addr": video_info?.itemInfo?.itemStruct?.video?.playAddr,
+                        "download_addr": video_info?.itemInfo?.itemStruct?.video?.downloadAddr
+                    }
+                }
+            ).catch(err => {
+                console.log(`Get video info from url = ${api_url} ERROR: \n${err}!`);
+                video_info = undefined;
+                video_url = undefined;
+            })
         }),
         getVideoUrl(web_url).then(
-            result => { video_url = result }
+            result => { video_url = Object.assign(video_url, result) }
         ).catch(err => {
             console.log(`Get video url from url = ${web_url} ERROR: \n${err}!`);
         })

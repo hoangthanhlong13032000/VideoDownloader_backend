@@ -34,7 +34,7 @@ const getVideoInfo = async (source) => {
     let info = undefined;
     const id = getVideoID(source);
     const url = constant.VIDEO_URL + id;
-    const options = { headers: utils.getHeaders() };
+    const options = utils.getHeaders();
 
     console.log(`--SUCCESS-- get youtube video id of url = ${source}: id = ${id}`);
 
