@@ -135,7 +135,6 @@ POST /auth/video
 Body:
 ```
 {
-    "user_id": "e9d489aa-492a-4c94-bd6d-28764274b41d",
     "source": "youtube",
     "id": "G-17jRBVdQi",
     "title": "title for video",
@@ -153,7 +152,6 @@ DELETE /auth/video
 Body: 
 ```
 {
-    "user_id": "e9d489aa-492a-4c94-bd6d-28764274b41d",
     "source": "tiktok",
     "id": "G-17jRBVdQi",
 }
