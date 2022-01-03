@@ -36,7 +36,9 @@ const data = (info) => {
 
     try {
         const streamingData = info.streamingData;
-        for (const fm of [...streamingData.formats, ...streamingData.adaptiveFormats]) {
+        const formats = streamingData?.formats || [];
+        const adaptiveFormats = streamingData?.adaptiveFormats || [];
+        for (const fm of [...formats, ...adaptiveFormats]) {
             Object.assign(fm, constants.FORMATS[fm.itag]);
 
             hasVideo = !!fm.qualityLabel;
@@ -132,6 +134,7 @@ const videoRenderer = (renderer) => {
 
     return {
         id: video_id,
+        source: "youtube",
         lengthInText: renderer.lengthText?.simpleText,
         title: video_title,
         publishedTime: renderer.publishedTimeText?.simpleText || "",
